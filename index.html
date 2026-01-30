@@ -131,7 +131,7 @@
         <p>江美城の城名と意匠を配した、基本デザインのデジタル御城印です。</p>
       </div>
       <div class="download">
-        <a href="javascript:void(0);" onclick="downloadWithDate();">ダウンロード</a>
+        <a href="javascript:void(0);" id="downloadBtn">ダウンロード</a>
       </div>
     </div>
   </section>
@@ -143,7 +143,7 @@
 
 <script>
 // グローバルスコープに関数を定義
-window.downloadWithDate = function () {
+function downloadWithDate() {
 
   const img = new Image();
   img.crossOrigin = 'anonymous';
@@ -213,6 +213,12 @@ window.downloadWithDate = function () {
     alert('画像を読み込めませんでした。配置パスをご確認ください。');
   };
 }
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('downloadBtn');
+  if (btn) {
+    btn.addEventListener('click', downloadWithDate);
+  }
+});
 </script>
 </body>
 </html>
