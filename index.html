@@ -182,7 +182,7 @@ function downloadWithDate() {
     const bigSize = 96;
     const chars = dateStr.split('');
     const lineHeight = 92;
-    const startY = -((chars.length - 1) * lineHeight) / 2;
+    const startY = -((chars.length - 1) * lineHeight) / 2 + lineHeight * 2;
 
     chars.forEach((ch, i) => {
       if (ch === '令' || ch === '和') {
