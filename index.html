@@ -186,9 +186,9 @@ function downloadWithDate() {
 
     chars.forEach((ch, i) => {
       if (ch === '令' || ch === '和') {
-        ctx.font = bigSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+        ctx.font = bigSize + 'px "Yu Kyokasho", "Hiragino Mincho ProN", serif';
       } else {
-        ctx.font = baseSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+        ctx.font = baseSize + 'px "Yu Kyokasho", "Hiragino Mincho ProN", serif';
       }
       const offset = (ch === '令' || ch === '和') ? -10 : 0;
       ctx.fillText(ch, 0, startY + i * lineHeight + offset);
