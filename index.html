@@ -116,7 +116,7 @@
     <h2>デジタル御城印について</h2>
     <p>
       本ページでは、江美城をモチーフとしたデジタル御城印を無料でダウンロードいただけます。
-      個人利用（鑑賞・保存・SNS投稿）を目的としてお楽しみください。
+      個人利用（鑑賞・保存）を目的としてお楽しみください。
     </p>
     <p>
       ※ 商用利用・再配布・改変はご遠慮ください。
@@ -178,7 +178,7 @@ function downloadWithDate() {
 
     const chars = dateStr.split('');
     const baseFontSize = 48;
-    const bigFontSize = 54; // 令・和を少し大きく
+    const bigFontSize = 58; // 令・和をさらに少し大きく // 令・和を少し大きく
     const lineHeight = 52;
     const startY = -((chars.length - 1) * lineHeight) / 2;
 
@@ -188,7 +188,7 @@ function downloadWithDate() {
       } else {
         ctx.font = baseFontSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
       }
-      const offset = (ch === '令' || ch === '和') ? -6 : 0;
+      const offset = (ch === '令' || ch === '和') ? -10 : 0;
       ctx.fillText(ch, 0, startY + i * lineHeight + offset);
     });
     });
