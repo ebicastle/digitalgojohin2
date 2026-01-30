@@ -170,13 +170,29 @@ function downloadWithDate() {
       + toKanji(today.getMonth() + 1) + '月'
       + toKanji(today.getDate()) + '日';
 
-    ctx.save();
-    ctx.translate(60, canvas.height / 2);
-    ctx.rotate(-Math.PI / 2);
+        ctx.save();
+    ctx.translate(50, canvas.height / 2);
     ctx.font = '48px "Hiragino Mincho ProN", "Yu Mincho", serif';
     ctx.fillStyle = 'rgba(0,0,0,0.85)';
     ctx.textAlign = 'center';
-    ctx.fillText(dateStr, 0, 0);
+
+    const chars = dateStr.split('');
+    const baseFontSize = 48;
+    const bigFontSize = 54; // 令・和を少し大きく
+    const lineHeight = 52;
+    const startY = -((chars.length - 1) * lineHeight) / 2;
+
+    chars.forEach((ch, i) => {
+      if (ch === '令' || ch === '和') {
+        ctx.font = bigFontSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+      } else {
+        ctx.font = baseFontSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+      }
+      const offset = (ch === '令' || ch === '和') ? -6 : 0;
+      ctx.fillText(ch, 0, startY + i * lineHeight + offset);
+    });
+    });
+
     ctx.restore();
 
     const link = document.createElement('a');
