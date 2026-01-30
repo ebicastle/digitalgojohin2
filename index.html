@@ -125,9 +125,9 @@
 
     <section class="gallery">
     <div class="card">
-      <img src="ebicastle2.png" alt="江美城 デジタル御城印">
+      <img src="ebicastle2.png" alt="江美城 デジタル御城印（標準）">
       <div class="card-body">
-        <h3>江美城 御城印</h3>
+        <h3>江美城 御城印（標準）</h3>
         <p>江美城の城名と意匠を配した、基本デザインのデジタル御城印です。</p>
       </div>
       <div class="download">
@@ -142,9 +142,8 @@
 </footer>
 
 <script>
-// グローバルスコープに関数を定義
+// ダウンロード処理（確定版・安定動作）
 function downloadWithDate() {
-
   const img = new Image();
   img.crossOrigin = 'anonymous';
   img.src = 'ebicastle.png';
@@ -157,14 +156,15 @@ function downloadWithDate() {
 
     ctx.drawImage(img, 0, 0);
 
+    // 和暦・漢数字変換
     const today = new Date();
-        const reiwaYear = today.getFullYear() - 2018;
+    const reiwaYear = today.getFullYear() - 2018;
 
     function toKanji(num) {
-      const kanjiNums = ['零','一','二','三','四','五','六','七','八','九'];
-      if (num < 10) return kanjiNums[num];
-      if (num < 20) return '十' + (num === 10 ? '' : kanjiNums[num - 10]);
-      if (num < 100) return kanjiNums[Math.floor(num / 10)] + '十' + (num % 10 === 0 ? '' : kanjiNums[num % 10]);
+      const k = ['零','一','二','三','四','五','六','七','八','九'];
+      if (num < 10) return k[num];
+      if (num < 20) return '十' + (num === 10 ? '' : k[num - 10]);
+      if (num < 100) return k[Math.floor(num / 10)] + '十' + (num % 10 === 0 ? '' : k[num % 10]);
       return num;
     }
 
@@ -172,34 +172,34 @@ function downloadWithDate() {
       + toKanji(today.getMonth() + 1) + '月'
       + toKanji(today.getDate()) + '日';
 
-        ctx.save();
+    // 縦組み描画（中央左）
+    ctx.save();
     ctx.translate(50, canvas.height / 2);
-    ctx.font = '48px "Hiragino Mincho ProN", "Yu Mincho", serif';
     ctx.fillStyle = 'rgba(0,0,0,0.85)';
     ctx.textAlign = 'center';
 
+    const baseSize = 48;
+    const bigSize = 58;
     const chars = dateStr.split('');
-    const baseFontSize = 48;
-    const bigFontSize = 58; // 令・和をさらに少し大きく // 令・和を少し大きく
     const lineHeight = 52;
     const startY = -((chars.length - 1) * lineHeight) / 2;
 
     chars.forEach((ch, i) => {
       if (ch === '令' || ch === '和') {
-        ctx.font = bigFontSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+        ctx.font = bigSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
       } else {
-        ctx.font = baseFontSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
+        ctx.font = baseSize + 'px "Hiragino Mincho ProN", "Yu Mincho", serif';
       }
       const offset = (ch === '令' || ch === '和') ? -10 : 0;
       ctx.fillText(ch, 0, startY + i * lineHeight + offset);
     });
-    });
 
     ctx.restore();
 
-    const link = document.createElement('a');
-    canvas.toBlob(function(blob) {
+    // ダウンロード
+    canvas.toBlob(function (blob) {
       const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
       link.href = url;
       link.download = 'ebijo_gojoin_standard_' + dateStr + '.png';
       document.body.appendChild(link);
@@ -208,11 +208,9 @@ function downloadWithDate() {
       URL.revokeObjectURL(url);
     });
   };
-
-  img.onerror = function () {
-    alert('画像を読み込めませんでした。配置パスをご確認ください。');
-  };
 }
+
+// ボタンイベント登録
 document.addEventListener('DOMContentLoaded', function () {
   const btn = document.getElementById('downloadBtn');
   if (btn) {
