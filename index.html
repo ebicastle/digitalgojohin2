@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デジタル御城印 ダウンロード｜江美城</title>
+  <style>
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      margin: 0;
+      background: #f5f3ef;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(135deg, #2f3e46, #3a5a40);
+      color: #fff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+    }
+    header p {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem 3rem;
+    }
+    .intro {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+    .intro h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 80%;
+      max-width: 300px;
+      margin: 1rem auto 0;
+      display: block;
+    }
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+    .card-body h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+    .card-body p {
+      margin: 0 0 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .download {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: auto;
+      padding: 1rem;
+    }
+    .download a {
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      background: #3a5a40;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+    .download a:hover {
+      background: #2f3e46;
+    }
+    footer {
+      background: #e9e6df;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>江美城 デジタル御城印</h1>
+  <p>Digital Goshuin / Gojo-in</p>
+</header>
+
+<main>
+  <section class="intro">
+    <h2>デジタル御城印について</h2>
+    <p>
+      本ページでは、江美城をモチーフとしたデジタル御城印を無料でダウンロードいただけます。
+      個人利用（鑑賞・保存・SNS投稿）を目的としてお楽しみください。
+    </p>
+    <p>
+      ※ 商用利用・再配布・改変はご遠慮ください。
+    </p>
+  </section>
+
+    <section class="gallery">
+    <div class="card">
+      <img src="ebicastle2.png" alt="江美城 デジタル御城印（標準）">
+      <div class="card-body">
+        <h3>江美城 御城印（標準）</h3>
+        <p>江美城の城名と意匠を配した、基本デザインのデジタル御城印です。</p>
+      </div>
+      <div class="download">
+        <a href="#" onclick="downloadWithDate(); return false;">ダウンロード</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 江美城調査・保存関連事業</p>
+</footer>
+
+<script>
+function downloadWithDate() {
+  const img = new Image();
+  img.src = 'ebicastle.png';
+  img.onload = function () {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(img, 0, 0);
+
+    const today = new Date();
+    const reiwaYear = today.getFullYear() - 2018;
+    const dateStr = '令和' + reiwaYear + '年' +
+      (today.getMonth() + 1) + '月' +
+      today.getDate() + '日';
+
+    ctx.save();
+    ctx.translate(canvas.width - 30, canvas.height - 30);
+    ctx.rotate(-Math.PI / 2);
+    ctx.font = '24px "Hiragino Mincho ProN", "Yu Mincho", serif';
+    ctx.fillStyle = 'rgba(0,0,0,0.75)';
+    ctx.textAlign = 'right';
+    ctx.fillText(dateStr, 0, 0);
+    ctx.restore();
+
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'ebijo_gojoin_standard_' + dateStr + '.png';
+    link.click();
+  };
+}
+</script>
+</body>
+</html>
