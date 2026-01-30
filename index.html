@@ -201,7 +201,7 @@ function downloadWithDate() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = '江美城デジタル御城印_' + '.png';
+      link.download = '江美城デジタル御城印' + '.png';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
