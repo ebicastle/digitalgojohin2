@@ -186,9 +186,9 @@ function downloadWithDate() {
 
     chars.forEach((ch, i) => {
       if (ch === '令' || ch === '和') {
-        ctx.font = bigSize + 'px "AR Gyokasho", "Hiragino Mincho ProN", serif';
+        ctx.font = bigSize + 'px "Hiragino Gyosho", "Yuji Syuku", "Hiragino Mincho ProN", serif';
       } else {
-        ctx.font = baseSize + 'px "AR Gyokasho", "Hiragino Mincho ProN", serif';
+        ctx.font = baseSize + 'px "Hiragino Gyosho", "Yuji Syuku", "Hiragino Mincho ProN", serif';
       }
       const offset = (ch === '令' || ch === '和') ? -10 : 0;
       ctx.fillText(ch, 0, startY + i * lineHeight + offset);
@@ -201,7 +201,7 @@ function downloadWithDate() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'ebijo_gojoin_standard_' + dateStr + '.png';
+      link.download = '江美城デジタル御城印_' + '.png';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
