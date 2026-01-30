@@ -125,7 +125,7 @@
 
     <section class="gallery">
     <div class="card">
-      <img src="images/ebijo_gojoin_01.jpg" alt="江美城 デジタル御城印（標準）">
+      <img src="images/ebijo_gojoin_01.jpg" alt="江美城 デジタル御城印">
       <div class="card-body">
         <h3>江美城 御城印</h3>
         <p>江美城の城名と意匠を配した、基本デザインのデジタル御城印です。</p>
@@ -178,10 +178,10 @@ function downloadWithDate() {
     ctx.fillStyle = 'rgba(0,0,0,0.85)';
     ctx.textAlign = 'center';
 
-    const baseSize = 96;
-    const bigSize = 120;
+    const baseSize = 80;
+    const bigSize = 96;
     const chars = dateStr.split('');
-    const lineHeight = 110;
+    const lineHeight = 92;
     const startY = -((chars.length - 1) * lineHeight) / 2;
 
     chars.forEach((ch, i) => {
