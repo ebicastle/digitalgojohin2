@@ -125,9 +125,9 @@
 
     <section class="gallery">
     <div class="card">
-      <img src="ebicastle2.jpg" alt="江美城 デジタル御城印">
+      <img src="ebicastle2.jpg" alt="江美城 デジタル御城印（標準）">
       <div class="card-body">
-        <h3>江美城 御城印</h3>
+        <h3>江美城 御城印（標準）</h3>
         <p>江美城の城名と意匠を配した、基本デザインのデジタル御城印です。</p>
       </div>
       <div class="download">
@@ -144,26 +144,28 @@
 <script>
 function downloadWithDate() {
   const img = new Image();
+  img.crossOrigin = 'anonymous';
   img.src = 'ebicastle.png';
+
   img.onload = function () {
     const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
     const ctx = canvas.getContext('2d');
 
     ctx.drawImage(img, 0, 0);
 
     const today = new Date();
     const reiwaYear = today.getFullYear() - 2018;
-    const dateStr = '令和' + reiwaYear + '年' +
-      (today.getMonth() + 1) + '月' +
-      today.getDate() + '日';
+    const dateStr = '令和' + reiwaYear + '年'
+      + (today.getMonth() + 1) + '月'
+      + today.getDate() + '日';
 
     ctx.save();
     ctx.translate(30, canvas.height - 30);
     ctx.rotate(-Math.PI / 2);
     ctx.font = '24px "Hiragino Mincho ProN", "Yu Mincho", serif';
-    ctx.fillStyle = 'rgba(0,0,0,0.75)';
+    ctx.fillStyle = 'rgba(0,0,0,0.8)';
     ctx.textAlign = 'right';
     ctx.fillText(dateStr, 0, 0);
     ctx.restore();
@@ -172,6 +174,10 @@ function downloadWithDate() {
     link.href = canvas.toDataURL('image/png');
     link.download = '江美城デジタル御城印_' + dateStr + '.png';
     link.click();
+  };
+
+  img.onerror = function () {
+    alert('画像を読み込めませんでした。配置パスをご確認ください。');
   };
 }
 </script>
