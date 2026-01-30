@@ -174,12 +174,12 @@ function downloadWithDate() {
 
     // 縦組み描画（中央左）
     ctx.save();
-    ctx.translate(50, canvas.height / 2 + 40);
+    ctx.translate(100, canvas.height / 2 + 40);
     ctx.fillStyle = 'rgba(0,0,0,0.85)';
     ctx.textAlign = 'center';
 
-    const baseSize = 48;
-    const bigSize = 58;
+    const baseSize = 80;
+    const bigSize = 90;
     const chars = dateStr.split('');
     const lineHeight = 52;
     const startY = -((chars.length - 1) * lineHeight) / 2;
