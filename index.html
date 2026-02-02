@@ -212,10 +212,15 @@ function downloadWithDate() {
 
 // ボタンイベント登録
 document.addEventListener('DOMContentLoaded', function () {
-  const btn = document.getElementById('downloadBtn');
-  if (btn) {
-    btn.addEventListener('click', downloadWithDate);
-  }
+const btn = document.getElementById('downloadBtn');
+if (btn) {
+btn.addEventListener('click', downloadWithDate);
+}
+loadDownloadCount();
+});
+if (btn) {
+btn.addEventListener('click', downloadWithDate);
+}
 });
 </script>
 </body>
