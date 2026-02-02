@@ -133,6 +133,7 @@
       <div class="download">
         <a href="javascript:void(0);" id="downloadBtn">ダウンロード</a>
       </div>
+            <p id="downloadCount" style="display:none;text-align:center;font-size:0.8rem;color:#555;margin-bottom:1rem;">ダウンロード数：0</p>
     </div>
   </section>
 </main>
@@ -142,6 +143,27 @@
 </footer>
 
 <script>
+  // ダウンロード数カウント（localStorage）
+const DL_KEY = 'ebijo_gojoin_download_count';
+
+function loadDownloadCount() {
+  const el = document.getElementById('downloadCount');
+  if (!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const isAdmin = params.get('admin') === '1';
+  if (!isAdmin) return;
+  el.style.display = 'block';
+  const count = parseInt(localStorage.getItem(DL_KEY) || '0', 10);
+  el.textContent = 'ダウンロード数：' + count;
+}
+
+function incrementDownloadCount() {
+  const el = document.getElementById('downloadCount');
+  let count = parseInt(localStorage.getItem(DL_KEY) || '0', 10);
+  count++;
+  localStorage.setItem(DL_KEY, String(count));
+  if (el) el.textContent = 'ダウンロード数：' + count;
+}
 // ダウンロード処理（確定版・安定動作）
 function downloadWithDate() {
   const img = new Image();
@@ -165,7 +187,8 @@ function downloadWithDate() {
       if (num < 10) return k[num];
       if (num < 20) return '十' + (num === 10 ? '' : k[num - 10]);
       if (num < 100) return k[Math.floor(num / 10)] + '十' + (num % 10 === 0 ? '' : k[num % 10]);
-      return num;
+           return String(num);
+
     }
 
     const dateStr = '令和' + toKanji(reiwaYear) + '年　'
@@ -198,6 +221,8 @@ function downloadWithDate() {
 
     // ダウンロード
     canvas.toBlob(function (blob) {
+            if (!blob) return;
+      incrementDownloadCount();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -213,9 +238,9 @@ function downloadWithDate() {
 // ボタンイベント登録
 document.addEventListener('DOMContentLoaded', function () {
   const btn = document.getElementById('downloadBtn');
-  if (btn) {
-    btn.addEventListener('click', downloadWithDate);
-  }
+  if (btn) btn.addEventListener('click', downloadWithDate);
+  loadDownloadCount();
+  
 });
 </script>
 </body>
